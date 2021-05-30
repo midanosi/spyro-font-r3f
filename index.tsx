@@ -1,31 +1,32 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import Hello from './Hello';
-import './style.css';
 
-interface AppProps { }
-interface AppState {
-  name: string;
-}
+import * as THREE from 'three'
+import React, { useRef } from 'react'
+import { useGLTF } from '@react-three/drei'
+import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
 
-class App extends Component<AppProps, AppState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'React'
-    };
+type GLTFResult = GLTF & {
+  nodes: {
+    Letter_H: THREE.Mesh
   }
-
-  render() {
-    return (
-      <div>
-        <Hello name={this.state.name} />
-        <p>
-          Start editing to see some magic happen :)
-        </p>
-      </div>
-    );
+  materials: {
+    ['Default OBJ']: THREE.MeshStandardMaterial
   }
 }
 
-render(<App />, document.getElementById('root'));
+export default function Model(props: JSX.IntrinsicElements['group']) {
+  const group = useRef<THREE.Group>()
+  const { nodes, materials } = useGLTF('/letterH.glb') as GLTFResult
+  return (
+    <group ref={group} {...props} dispose={null}>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Letter_H.geometry}
+        material={materials['Default OBJ']}
+        rotation={[Math.PI / 2, 0, 0]}
+      />
+    </group>
+  )
+}
+
+useGLTF.preload('/letterH.glb')
