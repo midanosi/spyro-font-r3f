@@ -1,32 +1,22 @@
+import React from "react";
+import { render } from "react-dom";
+import SpyroText from "./SpyroText";
+import "./style.css";
 
-import * as THREE from 'three'
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
-import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
+const App = () => {
+  const [text, setText] = React.useState("");
 
-type GLTFResult = GLTF & {
-  nodes: {
-    Letter_H: THREE.Mesh
-  }
-  materials: {
-    ['Default OBJ']: THREE.MeshStandardMaterial
-  }
-}
-
-export default function Model(props: JSX.IntrinsicElements['group']) {
-  const group = useRef<THREE.Group>()
-  const { nodes, materials } = useGLTF('/letterH.glb') as GLTFResult
   return (
-    <group ref={group} {...props} dispose={null}>
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Letter_H.geometry}
-        material={materials['Default OBJ']}
-        rotation={[Math.PI / 2, 0, 0]}
+    <div>
+      <SpyroText text={text} />
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.currentTarget.value)}
+        placeholder="type text you want here"
       />
-    </group>
-  )
-}
+    </div>
+  );
+};
 
-useGLTF.preload('/letterH.glb')
+render(<App />, document.getElementById("root"));
