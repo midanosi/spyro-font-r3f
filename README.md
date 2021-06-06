@@ -1,3 +1,3 @@
-# react-ts-d53pem
+# spyro-font-r3f
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/react-ts-d53pem)
+Edit on codesandbox https://codesandbox.io/s/nice-brattain-muu5e
