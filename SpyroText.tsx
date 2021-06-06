@@ -1,37 +1,78 @@
 import React, { Suspense } from "react";
-import { LetterH } from "./letterComponents";
+import { H, E, L, O } from "./letterComponents";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Stage } from "@react-three/drei";
+import {
+  OrbitControls,
+  Stage,
+  Environment,
+  OrthographicCamera,
+  useHelper
+} from "@react-three/drei";
+import * as THREE from "three";
+
+const components = {
+  H,
+  E,
+  L,
+  O
+};
 
 const getLetterComponent = (letter: string) => {
-  console.log("getletter", letter);
-  // if (['H', 'E', 'L', 'O'].includes(letter)) {
-  //   return
-  // }
-
-  if (letter === "H") {
-    return <LetterH />;
+  if (["H", "E", "L", "O"].includes(letter)) {
+    return components[letter];
   }
+
+  return null;
+};
+const LetterL = getLetterComponent("L");
+
+const Lights = () => {
+  const spotlightRef = React.useRef();
+  useHelper(spotlightRef, THREE.SpotLightHelper);
+  return (
+    <>
+      <ambientLight intensity={3} />
+      <spotLight ref={spotlightRef} position={[-8, 0, 20]} penumbra={1} />
+      {/* <pointLight position={[-50, 0, 10]} /> */}
+    </>
+  );
 };
 
 export default ({ text }) => {
   console.log(text);
+  if (text === "") {
+    return null;
+  }
+
   return (
-    <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 150], fov: 50 }}>
+    <Canvas
+      shadows
+      // dpr={[1, 2]}
+      // camera={{ position: [0, 0, 2], fov: 150, type }}
+      style={{ height: "50vh" }}
+    >
       <Suspense fallback={null}>
-        <Stage
-          environment="city"
-          intensity={0.5}
-          contactShadowOpacity={0.6}
-          contactShadowBlur={1}
-        >
-          {/* {text.split("").map((char) => {
-            return getLetterComponent(char);
-          })} */}
-          <LetterH position={[0, 100, 100]} />
-        </Stage>
+        <OrthographicCamera position={[0, 0, 20]} makeDefault zoom={20} />
+        <group position={[0, 0, 0]}>
+          {text.split("").map((char, idx) => {
+            if (char === "") {
+              return null;
+            }
+            const LetterComponent = getLetterComponent(char);
+            console.log(`LetterComponent`, LetterComponent);
+
+            return (
+              <LetterComponent
+                position={[idx * 5 - 5, 0, 0]}
+                rotation-x={Math.PI}
+                rotation-y={0.2}
+              />
+            );
+          })}
+        </group>
       </Suspense>
-      <OrbitControls autoRotate />
+      <Lights />
+      <OrbitControls />
     </Canvas>
   );
 };

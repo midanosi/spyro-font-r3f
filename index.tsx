@@ -4,7 +4,7 @@ import SpyroText from "./SpyroText";
 import "./style.css";
 
 const App = () => {
-  const [text, setText] = React.useState("");
+  const [text, setText] = React.useState("HELLO");
 
   return (
     <div>

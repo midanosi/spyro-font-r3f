@@ -1,4 +1,4 @@
-export { default as LetterH } from "./LetterH";
-export { default as LetterE } from "./LetterE";
-export { default as LetterL } from "./LetterL";
-export { default as LetterO } from "./LetterO";
+export { default as H } from "./H";
+export { default as E } from "./E";
+export { default as L } from "./L";
+export { default as O } from "./O";
