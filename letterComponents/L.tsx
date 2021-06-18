@@ -22,9 +22,9 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
         castShadow
         receiveShadow
         geometry={nodes.Node.geometry}
-        rotation={[Math.PI / 2, 0, 0]}
+        rotation={[Math.PI * 2, 0, 0]}
       >
-        <meshStandardMaterial />
+        <meshStandardMaterial metalness={1} color={"#9d946b"} />
       </mesh>
     </group>
   );

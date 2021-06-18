@@ -25,7 +25,9 @@ export default function Model(props) {
         geometry={nodes.Letter_H.geometry}
         material={materials["Default OBJ"]}
         rotation={[Math.PI / 2, 0, 0]}
-      />
+      >
+        <meshStandardMaterial metalness={1} color={"#9d946b"} />
+      </mesh>
     </group>
   );
 }

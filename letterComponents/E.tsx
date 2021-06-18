@@ -23,7 +23,9 @@ export default function Model(props) {
         geometry={nodes.Letter_E.geometry}
         material={THREE.MeshNormalMaterial}
         rotation={[Math.PI / 2, 0, 0]}
-      />
+      >
+        <meshStandardMaterial metalness={1} color={"#9d946b"} />
+      </mesh>
     </group>
   );
 }

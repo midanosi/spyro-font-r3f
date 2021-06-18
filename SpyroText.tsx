@@ -24,7 +24,6 @@ const getLetterComponent = (letter: string) => {
 
   return null;
 };
-const LetterL = getLetterComponent("L");
 
 const Lights = () => {
   const spotlightRef = React.useRef();
@@ -63,7 +62,7 @@ export default ({ text }) => {
 
             return (
               <LetterComponent
-                position={[idx * 5 - 5, 0, 0]}
+                position={[idx * 6, 10, 1]}
                 rotation-x={Math.PI}
                 rotation-y={0.2}
               />
